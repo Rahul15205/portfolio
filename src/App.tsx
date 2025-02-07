@@ -127,7 +127,7 @@ function App() {
         {/* IDE-like Tabs */}
         <div className="bg-gray-800 rounded-t-lg border border-gray-700">
           <div className="flex border-b border-gray-700">
-            {['about', 'projects', 'skills', 'experience'].map((tab) => (
+            {['about', 'projects', 'skills'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -197,7 +197,7 @@ function App() {
               </div>
             )}
 
-            {activeTab === 'experience' && (
+            {/* {activeTab === 'experience' && (
               <div className="space-y-6">
                 <ExperienceItem 
                   title="Senior Developer"
@@ -212,7 +212,7 @@ function App() {
                   description="Developed scalable microservices architecture"
                 />
               </div>
-            )}
+            )} */}
           </div>
         </div>
 
