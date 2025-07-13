@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Terminal, 
-  Code2, 
-  Github, 
-  ExternalLink, 
-  Cpu, 
+import {
+  Terminal,
+  Code2,
+  Github,
+  ExternalLink,
+  Cpu,
   Database,
   Globe,
   Mail,
   Braces,
   Coffee,
-  Send
+  Send,
+  Download
 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
@@ -29,7 +30,7 @@ function App() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       await emailjs.send(
         'service_7ct8fma',
@@ -86,13 +87,18 @@ function App() {
               <span className="font-mono text-lg">~/portfolio</span>
             </div>
             <div className="flex items-center space-x-4">
-              <a href="https://github.com/Rahul15205" target="_blank" rel="noopener noreferrer" 
+              <a href="https://github.com/Rahul15205" target="_blank" rel="noopener noreferrer"
                 className="hover:text-emerald-400 transition-colors">
                 <Github className="w-5 h-5" />
               </a>
-              <a href="mailto:rahulkumarshukla4627@gmail.com" 
+              <a href="mailto:rahulkumarshukla4627@gmail.com"
                 className="hover:text-emerald-400 transition-colors">
                 <Mail className="w-5 h-5" />
+              </a>
+              <a href="/resume.pdf" download="Rahul_Kumar_Resume.pdf"
+                className="hidden sm:inline-flex items-center space-x-2 px-3 py-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded-md transition-colors text-sm font-medium">
+                <Download className="w-4 h-4" />
+                <span>Resume</span>
               </a>
             </div>
           </div>
@@ -119,30 +125,36 @@ function App() {
             {'location: "Lucknow"\n'}<br />
             {'}'}
           </p>
+          <div className="mt-8 sm:hidden">
+            <a href="\resume.pdf" download="Rahul_Kumar_Resume.pdf"
+              className="inline-flex items-center space-x-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-md transition-colors font-medium">
+              <Download className="w-4 h-4" />
+              <span>Download Resume</span>
+            </a>
+          </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-4 py-12">
+      <main className="max-w-6xl mx-auto px-2 sm:px-4 py-8 sm:py-12">
         {/* IDE-like Tabs */}
         <div className="bg-gray-800 rounded-t-lg border border-gray-700">
-          <div className="flex border-b border-gray-700">
-            {['about', 'projects', 'skills'].map((tab) => (
+          <div className="flex flex-wrap justify-center sm:justify-start border-b border-gray-700">
+            {['about', 'projects', 'skills', 'experience'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-4 py-2 font-mono text-sm ${
-                  activeTab === tab 
-                    ? 'bg-gray-900 text-emerald-400 border-t-2 border-emerald-400' 
+                className={`px-2 py-1 sm:px-4 sm:py-2 font-mono text-sm ${activeTab === tab
+                    ? 'bg-gray-900 text-emerald-400 border-t-2 border-emerald-400'
                     : 'text-gray-400 hover:text-gray-200'
-                }`}
+                  }`}
               >
                 {tab}.js
               </button>
             ))}
           </div>
-          
-          <div className="p-6">
+
+          <div className="p-3 sm:p-6">
             {activeTab === 'about' && (
               <div className="space-y-4">
                 <h2 className="text-2xl font-mono text-emerald-400 mb-4">
@@ -150,7 +162,7 @@ function App() {
                   About Me
                 </h2>
                 <p className="text-gray-300 leading-relaxed">
-                  I'm a passionate full-stack developer with a love for clean code and innovative solutions. 
+                  I'm a passionate full-stack developer with a love for clean code and innovative solutions.
                   With expertise in modern web technologies, I create efficient, scalable, and user-friendly applications.
                 </p>
                 <div className="flex items-center space-x-2 text-gray-400">
@@ -162,62 +174,67 @@ function App() {
 
             {activeTab === 'projects' && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <ProjectCard 
+                <ProjectCard
                   title="Student Assistance program"
                   description="A real-time collaboration platform built with React and MongoDb"
                   tech={['React', 'Node.js', 'Express', 'MongoDB']}
                   link="https://github.com/Rahul15205/Faculty-Appointment-System"
                 />
-                <ProjectCard 
+                <ProjectCard
                   title="Instagram clone"
                   description="Social Media clone where you can post image comment,like and follow."
                   tech={['React', 'Firebase', 'Javascript', 'Node.js']}
                   link="https://github.com/Rahul15205/insta-clone"
+                />
+                <ProjectCard
+                  title="Leetcode AI Extension"
+                  description="A Leetcode AI Extension that helps to get concise breakdowns of LeetCode problems with key insights."
+                  tech={['Javascript', 'Groq API']}
+                  link="https://github.com/Rahul15205/leetcode-ai-extension"
                 />
               </div>
             )}
 
             {activeTab === 'skills' && (
               <div className="space-y-6">
-                <SkillCategory 
+                <SkillCategory
                   icon={<Globe className="w-5 h-5" />}
                   title="Frontend"
                   skills={['React', 'TypeScript', 'Tailwind CSS', 'Next.js']}
                 />
-                <SkillCategory 
+                <SkillCategory
                   icon={<Database className="w-5 h-5" />}
                   title="Backend"
                   skills={['Node.js', 'Express', 'MongoDb', 'Cloudinary']}
                 />
-                <SkillCategory 
+                <SkillCategory
                   icon={<Cpu className="w-5 h-5" />}
                   title="DevOps"
                   skills={['Docker', 'AWS', 'CI/CD', 'Kubernetes']}
                 />
+                <SkillCategory
+                  icon={<Braces className="w-5 h-5" />}
+                  title="AI"
+                  skills={['Langchain', 'Langgraph', 'LLM']}
+                />
               </div>
             )}
 
-            {/* {activeTab === 'experience' && (
+            {activeTab === 'experience' && (
               <div className="space-y-6">
-                <ExperienceItem 
-                  title="Senior Developer"
-                  company="Tech Corp"
-                  period="2021 - Present"
-                  description="Leading full-stack development of enterprise applications"
-                />
-                <ExperienceItem 
-                  title="Software Engineer"
-                  company="Startup Inc"
-                  period="2018 - 2021"
-                  description="Developed scalable microservices architecture"
+                <ExperienceItem
+                  title="DSA Instructor"
+                  company="One2OneHub"
+                  period="April 2025 - June 2025"
+                  description="Designed and delivered DSA curriculum with 100+ scripts, quizzes, and visual aids for all skill levels."
                 />
               </div>
-            )} */}
+            )}
           </div>
         </div>
 
         {/* Contact Section */}
-        <div className="mt-20 bg-gray-800 rounded-lg border border-gray-700 p-8">
+        <div className="mt-12 sm:mt-20 bg-gray-800 rounded-lg border border-gray-700 p-4 sm:p-8">
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-8">
               <Mail className="w-8 h-8 text-emerald-400 mx-auto mb-4" />
@@ -346,9 +363,9 @@ function ProjectCard({ title, description, tech, link }: ProjectCardProps) {
           </span>
         ))}
       </div>
-      <a 
-        href={link} 
-        target="_blank" 
+      <a
+        href={link}
+        target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center text-sm text-emerald-400 hover:text-emerald-300"
       >
@@ -375,7 +392,7 @@ function SkillCategory({ icon, title, skills }: SkillCategoryProps) {
       </div>
       <div className="flex flex-wrap gap-2">
         {skills.map((skill, i) => (
-          <span 
+          <span
             key={i}
             className="px-3 py-1 bg-gray-900 border border-gray-700 rounded-full text-sm"
           >
